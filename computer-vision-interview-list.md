@@ -13,7 +13,7 @@ The checklist is split into two parts:
 
 ---
 
-## Phase 1: Core Math & Statistics
+[## Phase 1: Core Math & Statistics](https://github.com/k4mrul/CVIL/blob/main/Phase-1:-Core-Math-Statistics.md)
 
 **Probability & Statistics**
 - Bayes' theorem
