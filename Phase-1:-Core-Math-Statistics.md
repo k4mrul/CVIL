@@ -61,7 +61,7 @@ Conditional probability depends heavily on the information you condition on. Bad
 
 ## What it means
 
-Bayes’ theorem helps us reverse conditional probabilities.
+Bayes’ theorem tells us how to update our belief after seeing evidence.
 
 Formula:
 
@@ -69,27 +69,13 @@ Formula:
 P(A | B) = P(B | A) × P(A) / P(B)
 ```
 
-In simple words:
-
-> Bayes’ theorem tells us how to update our belief after seeing evidence.
-
 ## Easy example
 
-Imagine a disease test.
-
-* 1% of people have the disease.
-* If someone has the disease, the test is positive 99% of the time.
-* But the test can also be positive for healthy people.
+Imagine a disease test. There's a 1% chance you have a rare disease (prior). You take a test that is 99% accurate, and it comes back positive. Bayes' theorem tells you the actual chance you have the disease is much lower than 99%—because the disease is rare, false positives outnumber real positives.
 
 Bayes’ theorem helps answer:
 
 > If my test is positive, what is the chance I actually have the disease?
-
-This is different from:
-
-> If I have the disease, what is the chance the test is positive?
-
-Many beginners confuse these two.
 
 ## Why it exists
 
