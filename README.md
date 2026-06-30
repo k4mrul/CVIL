@@ -21,7 +21,7 @@ It's deliberately **not** a textbook or another giant paper list. It's a practic
 ## What's Inside
 
 - **Core Phases (1-5)**: Math & stats, CNNs, Transformers/ViTs, Object Detection (YOLO deep dive), and Tracking.
-- **Specialization Tracks**: Person Re-Identification (ReID) and Deployment & Production CV (more coming).
+- **Specialization Tracks**: Person Re-Identification (ReID), Deployment & Production CV, Segmentation, OCR, and Vision-Language Models (VLMs)... more coming.
 - Consistent emphasis on intuition, tradeoffs, and evolution of ideas.
 
 ## How I Used It
@@ -34,9 +34,9 @@ Feel free to move at your own pace... some people crush it in a few intense week
 
 This started as one person’s prep notes. It can grow into a proper community reference.
 
-New specialization tracks (Segmentation, 3D Vision, VLMs, etc.) are very welcome. Please open an issue first to discuss scope before submitting a PR.
+New specialization tracks (Pose Estimation, 3D Vision, Video Understanding, etc.) are very welcome. Please open an issue first to discuss scope before submitting a PR.
 
-Full contributing guidelines are in the [checklist file](./computer-vision-interview-list.md#contributing).
+Full contributing guidelines are in [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
 
