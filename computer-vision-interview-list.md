@@ -261,11 +261,6 @@ Pick the track(s) relevant to your target role. Each one assumes the Core Phases
 - Hard mining
 - Camera-aware training
 
-**ReID Datasets**
-- Market-1501
-- DukeMTMC
-- MSMT17
-
 **ReID Metrics**
 - Rank-1 accuracy
 - mAP
@@ -311,9 +306,165 @@ Pick the track(s) relevant to your target role. Each one assumes the Core Phases
 
 ---
 
+### Specialization: Segmentation
+
+**What Is Segmentation?**
+- Pixel-level classification vs. bounding-box localization
+- Semantic vs. instance vs. panoptic segmentation
+- Dense prediction problem framing
+
+**Segmentation Pipeline**
+- Encoder (backbone) → decoder (upsampling)
+- Skip connections for spatial detail recovery
+- Output: per-pixel class map or per-instance mask
+
+**Core Concepts**
+- Downsampling/upsampling tradeoff
+- Receptive field vs. resolution tension
+- Dilated/atrous convolution
+- Transposed convolution vs. interpolation upsampling
+- Encoder-decoder symmetry
+
+**Semantic Segmentation Architectures**
+- FCN: first fully convolutional approach
+- U-Net: encoder-decoder, skip connections, medical imaging origin
+- DeepLab (v1-v3+): atrous convolution, ASPP, CRF post-processing
+- PSPNet: pyramid pooling, global context
+
+**Instance & Panoptic Segmentation**
+- Mask R-CNN: RoIAlign, mask head on top of detection
+- Panoptic FPN: unifying stuff + things
+- YOLACT: real-time instance segmentation
+- Panoptic segmentation: stuff (semantic) + things (instance) unified
+
+**Transformer-Era Segmentation**
+- SegFormer: lightweight ViT decoder
+- Mask2Former: unified mask-classification framing
+- Segment Anything (SAM): promptable segmentation, zero-shot masks
+- SAM 2: video extension, memory mechanism
+
+**Losses**
+- Cross-entropy (per-pixel)
+- Dice loss: class imbalance, overlap-based
+- Focal loss: hard pixel emphasis
+- IoU / Jaccard loss
+- Boundary-aware losses
+
+**Segmentation Tricks**
+- Class imbalance handling
+- Multi-scale inference / test-time augmentation
+- CRF refinement
+- Auxiliary losses at intermediate layers
+
+**Segmentation Metrics**
+- IoU / mIoU
+- Pixel accuracy
+- Dice coefficient
+- Panoptic Quality (PQ)
+
+---
+
+### Specialization: OCR (Optical Character Recognition)
+
+**What Is OCR?**
+- Text detection (where) vs. text recognition (what)
+- End-to-end OCR vs. two-stage pipelines
+- Scene text vs. document text (different difficulty regimes)
+
+**OCR Pipeline**
+- Text detection → text recognition → (optional) layout/structure parsing
+- Detector localizes text regions/lines/words
+- Recognizer transcribes cropped regions into strings
+
+**Text Detection**
+- Bounding box vs. polygon/quad detection (curved/rotated text)
+- CTPN: sequential text proposals
+- EAST: single-shot, rotated boxes
+- DBNet: differentiable binarization
+- Segmentation-based detection (text as pixel mask)
+
+**Text Recognition**
+- CRNN: CNN + RNN + CTC
+- CTC loss: alignment-free sequence labeling
+- Attention-based recognition (encoder-decoder)
+- Transformer-based recognizers (e.g. TrOCR)
+
+**Modern End-to-End & Layout-Aware Models**
+- Donut: OCR-free document understanding
+- LayoutLM family: text + layout + visual features jointly
+- TrOCR: pure Transformer pipeline
+- Document VQA framing
+
+**Must-Know Concepts**
+- CTC alignment problem
+- Beam search decoding
+- Character-level vs. word-level vs. subword tokenization
+- Handling skew, rotation, curved text
+- Multi-language / multi-script challenges
+
+**OCR Tricks**
+- Synthetic data generation (SynthText-style)
+- Data augmentation for fonts/distortions/backgrounds
+- Language model rescoring of outputs
+- Post-processing / spell correction
+
+**OCR Metrics**
+- Character Error Rate (CER)
+- Word Error Rate (WER)
+- Detection IoU / F-measure
+- Edit distance
+
+---
+
+### Specialization: Vision-Language Models (VLMs)
+
+**What Are VLMs?**
+- Joint vision + language representation/generation
+- Contrastive alignment vs. generative captioning vs. instruction-following
+- Why this builds on CLIP/DINO (Phase 3)
+
+**VLM Pipeline Patterns**
+- Vision encoder → projection layer → language model
+- Cross-attention fusion vs. early fusion (concatenated tokens)
+- Frozen vision encoder + trainable adapter (common pattern)
+
+**Key Architectures & Models**
+- CLIP: contrastive image-text pretraining (recap from Phase 3)
+- BLIP / BLIP-2: bootstrapped captioning, Q-Former
+- Flamingo: few-shot, interleaved image-text
+- LLaVA: visual instruction tuning
+- GPT-4V / Gemini-style: proprietary multimodal LLMs (architecture at a high level)
+- Kosmos: grounding + multimodal generation
+
+**Core Training Concepts**
+- Contrastive pretraining (image-text pairs)
+- Visual instruction tuning
+- Image tokenization strategies (patches, learned queries)
+- Alignment vs. generation objectives
+
+**Capabilities & Tasks**
+- Zero-shot classification
+- Visual question answering (VQA)
+- Image captioning
+- Visual grounding / referring expressions
+- Document/chart understanding
+
+**Must-Know Tradeoffs**
+- Hallucination in VLMs
+- Resolution vs. compute tradeoffs in vision tokenization
+- Catastrophic forgetting when fine-tuning the LM side
+- Data quality/scale dependence
+
+**VLM Metrics**
+- CIDEr / BLEU / METEOR (captioning)
+- VQA accuracy
+- Zero-shot top-1 (classification transfer)
+
+---
+
 ### Specialization: _Your Track Here_
 
-More specialization tracks (Segmentation, OCR, 3D Vision, VLMs, LLMs, and others) are planned. See the [Contributing](#contributing) section below if you'd like to help add one.
+More specialization tracks are planned. Ideas for future tracks: 3D Vision / Point Clouds • Video Understanding • Generative Models (Diffusion/GANs) • Medical Imaging • Pose Estimation. See the [Contributing](#contributing) section below if you'd like to help add one.
 
 ---
 
@@ -331,25 +482,7 @@ For each one, aim to know: the **intuition**, the **equations**, the **architect
 
 ## Contributing
 
-This checklist covers the core path plus two specialization tracks (ReID, Deployment), but computer vision is bigger than that. If you work in (or are studying for) a track that isn't here yet, contributions are welcome.
-
-### Adding a new specialization track
-
-1. **Open an issue first** describing the specialization you want to add (e.g. *Segmentation*, *OCR*, *3D Vision*, *VLMs*, *LLMs for CV*, *Video Understanding*, etc.), so it can be discussed before you put in the work.
-2. Once it's greenlit, submit a PR that:
-   - Follows the same structure as the existing tracks: a short "what is this?" framing, then grouped sub-lists (concepts → architectures/models → metrics/tricks → datasets, as relevant).
-   - Stays at **checklist depth**: topic names and short framing phrases, not full explanations. The goal is to point at what to study, not to teach it inline.
-   - Slots in under **Specialization Tracks**, replacing or sitting alongside the `_Your Track Here_` placeholder.
-3. Keep tone and formatting consistent with the rest of the doc (heading levels, bullet style, no checkboxes).
-
-### Other contributions
-
-- Spotted an outdated reference, a missing must-know model, or a topic that's drifted out of relevance? Open an issue or PR.
-- Disagree with how something is categorized (Core vs. Specialization)? Open an issue, happy to discuss.
-
-### Ideas for future tracks
-
-Segmentation • OCR • 3D Vision / Point Clouds • VLMs • LLMs for CV • Video Understanding • Generative Models (Diffusion/GANs) • Medical Imaging • Pose Estimation
+Want to add a specialization track or improve an existing one? See [CONTRIBUTING.md](./CONTRIBUTING.md) for the process.
 
 ---
 
