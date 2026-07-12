@@ -235,7 +235,7 @@ A statistical method to **make decisions** using data.
 - **p-value:** Probability of seeing the data **if H₀ is true**. Low p-value → Reject H₀.
 
 **Why it exists:**
-Provides a **framework** to test claims objectively.
+Provides a **framework** to test claims objectively. Humans are terrible at intuitively judging randomness. We see patterns in noise. Hypothesis testing imposes discipline.
 *Problem solved:* Helps in A/B testing, medical trials, quality control.
 
 **Tradeoffs:**
@@ -247,8 +247,8 @@ Provides a **framework** to test claims objectively.
 ### **14. Precision / Recall / F1**
 | Metric | Formula | What it means | Example |
 |--------|---------|--------------|---------|
-| **Precision** | TP / (TP + FP) | % of **predicted positives** that are correct. | Out of 100 emails marked as spam, 90 are actually spam. Precision = 90%. |
-| **Recall** | TP / (TP + FN) | % of **actual positives** found. | Out of 100 actual spam emails, 80 were caught. Recall = 80%. |
+| **Precision** | TP / (TP + FP) | % of **predicted positives** that are correct. | Out of 100 emails marked as spam, how many were actually spam. If 90 percent is actually spam, Precision = 90%. |
+| **Recall** | TP / (TP + FN) | % of **actual positives** found. | Out of 100 actual spam emails, how many did you catch. If 80 were caught. Recall = 80%. |
 | **F1 Score** | 2 × (Precision × Recall) / (Precision + Recall) | **Balance** between precision and recall. | If Precision=90%, Recall=80%, F1 ≈ 85%. |
 
 **Why it exists:**
@@ -256,21 +256,24 @@ Provides a **framework** to test claims objectively.
 - **Recall:** Important when **false negatives are costly** (e.g., cancer detection).
 *Problem solved:* Helps evaluate **classification models**.
 
+*Example*: Cancer screening:
+- High recall, low precision: You flag almost everyone (catch all cancers, but many healthy people get scared).
+- High precision, low recall: You only flag obvious cases (few false alarms, but miss some cancers).
+
 **Tradeoffs:**
-- **Precision vs. Recall:** Increasing one often **decreases the other**.
+- **Precision vs. Recall:** Precision and recall usually pull in opposite directions. Improving one often hurts the other. F1 forces you to confront this balance.
+
 
 ---
 
 ### **15. ROC / AUC**
 **What it is:**
-- **ROC Curve:** Plots **True Positive Rate (Recall)** vs. **False Positive Rate** at different thresholds.
+- **ROC Curve:** A graph showing the tradeoff between true positive rate (recall) and false positive rate as you change your model's decision threshold.
 - **AUC (Area Under Curve):** Single number (0 to 1) summarizing model performance.
 
 *Example:* A curve that’s closer to the top-left corner means a better model.
+A spam filter can be strict or lenient. ROC shows what happens across all possible strictness levels. AUC = 0.85 means if you pick a random spam email and a random real email, there's an 85% chance the model ranks the spam as "more spammy."
 
-**Why it exists:**
-- **ROC:** Shows tradeoff between **sensitivity (recall)** and **specificity**.
-- **AUC:** Measures **overall ability** to distinguish classes.
 *Problem solved:* Helps compare models **independent of threshold**.
 
 **Tradeoffs:**
