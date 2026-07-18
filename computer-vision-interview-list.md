@@ -32,8 +32,8 @@ The checklist is split into two parts:
 - Precision / Recall / F1
 - ROC / AUC
 - Calibration
-
-**Cross Entropy: Know the "Why"**
+  
+[**Cross Entropy: Know the "Why"**](https://github.com/k4mrul/CVIL/blob/main/cross-entropy.md)
 - Why log is used
 - Why one-hot labels work
 - Why cross-entropy pairs naturally with softmax
