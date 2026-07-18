@@ -82,3 +82,47 @@ If the model predicts the wrong class but still assigns a reasonable probability
 The largest penalty occurs when the model is **wrong and extremely confident**. For example, if it predicts Cat with 99.9% confidence while giving Dog only 0.05%, it is essentially saying, **"I am almost certain this is not a Dog."** Since the true label is Dog, cross-entropy treats this as a serious mistake and produces a very large loss.
 
 Classification accuracy considers all incorrect predictions equally wrong. Cross-entropy is more informative because it also evaluates the model's confidence. This encourages the model to produce **well-calibrated probabilities**, becoming confident only when it is likely to be correct.
+
+## One Complete Example
+
+Suppose the correct label is **Bird**:
+
+**y = [0, 0, 1]**
+
+We compare the predictions of three different models.
+
+### Model A
+
+**p = [0.05, 0.05, 0.90]**
+
+Cross-entropy loss:
+
+**L = -log(0.90) ≈ 0.105**
+
+This is an **excellent prediction** because the model correctly identifies Bird and is highly confident.
+
+### Model B
+
+**p = [0.30, 0.30, 0.40]**
+
+Cross-entropy loss:
+
+**L = -log(0.40) ≈ 0.916**
+
+The prediction is still **correct**, but the model is much less confident, resulting in a higher loss.
+
+### Model C
+
+**p = [0.99, 0.009, 0.001]**
+
+Cross-entropy loss:
+
+**L = -log(0.001) ≈ 6.908**
+
+This is a **very confidently wrong** prediction. The model assigns almost no probability to the correct class, so the loss becomes very large.
+
+## Key Takeaway
+
+Notice that **Model A** and **Model B** both predict **Bird** because Bird has the highest predicted probability. Therefore, **both receive the same classification accuracy** for this example.
+
+However, cross-entropy recognizes that **Model A is much better** because it assigns **90% probability** to the correct class, whereas **Model B assigns only 40%**. By considering prediction confidence, cross-entropy provides a more informative measure of model performance than accuracy alone.
