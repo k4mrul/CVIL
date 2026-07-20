@@ -59,10 +59,14 @@ Using raw class numbers (e.g., Cat=0, Dog=1, Bird=2) could incorrectly suggest o
 
 
 ## Why does cross-entropy pair naturally with softmax?
-Softmax converts raw logits (e.g., `[1.0, 3.0, 0.5]`) into probabilities (e.g., `[0.111, 0.821, 0.068]`) that sum to 1, making them suitable for classification. Cross-entropy then evaluates the model by penalizing low confidence in the correct class (e.g., `L = -log(0.821)` for Dog).
+Softmax and cross-entropy work together because they perform two connected jobs. Softmax turns the model’s raw scores into probabilities, and cross-entropy checks whether the correct class received enough probability. Their combined gradient clearly tells the model how to improve:
+
+> Raise the score of the correct class, lower the scores of incorrect classes, make large corrections when very wrong, and make small corrections when nearly correct.
+
+Softmax converts raw logits (e.g., `[1.0, 3.0, 0.5]`) into probabilities (e.g., `[0.111, 0.821, 0.068]`) that sum to 1, making them suitable for classification. Cross-entropy measures how wrong those probabilities are. It evaluates the model by penalizing low confidence in the correct class (e.g., `L = -log(0.821)` for Dog).
 
 The **key advantage** of pairing softmax with cross-entropy is their **simple gradient**:
-`∂L/∂zi = pi − yi`.
+`∂L/∂zi = pi − yi` (Learning signal = predicted probability − correct probability).
 This means the gradient is the difference between the **predicted probability** and the **actual label** (e.g., `[0.10, -0.20, 0.10]` for `p = [0.10, 0.80, 0.10]` and `y = [0, 1, 0]`).
 
 This clean gradient directly tells the network:
