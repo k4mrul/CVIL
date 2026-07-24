@@ -14,7 +14,6 @@ The checklist is split into two parts:
 ---
 
 ## [Phase 1: Core Math & Statistics](https://github.com/k4mrul/CVIL/blob/main/Phase-1:-Core-Math-Statistics.md)
-
 **Probability & Statistics**
 - Bayes' theorem
 - Conditional probability
@@ -39,7 +38,7 @@ The checklist is split into two parts:
 - Why cross-entropy pairs naturally with softmax
 - Why cross-entropy punishes confident wrong predictions heavily
 
-**Optimization**
+[**Optimization**](https://github.com/k4mrul/CVIL/blob/main/optimization.md)
 - Gradient descent
 - SGD
 - Momentum
