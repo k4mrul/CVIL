@@ -83,8 +83,7 @@ So, residual connections help deep networks by:
 ---
 
 ## Phase 2: CNNs From First Principles
-
-**Core CNN Concepts**         
+[**Core CNN Concepts**](https://github.com/k4mrul/CVIL/blob/main/phase2-CoreCNNConcepts.md)
 - Convolution
 - Kernels
 - Receptive fields
