@@ -53,9 +53,32 @@ The checklist is split into two parts:
 - Backpropagation & the chain rule
 
 **Why Residual Connections Help Gradients**
-- Identity shortcut preserves gradient flow
-- Avoids deep-network degradation
-- Creates an easier optimization landscape
+
+Very deep networks can have trouble sending gradients back to earlier layers. As a result, those layers learn slowly or stop learning.
+
+A residual connection creates a shortcut:
+
+```
+Output = learned change + original input
+Output = F(x) + x
+```
+
+The shortcut lets the gradient travel backward more easily.
+
+Simple Example
+
+Suppose the input is 10, and the desired output is 12.
+Instead of learning the complete transformation from 10 to 12, the network only learns the difference:
+
+```
+Learned change = 2
+Output = 10 + 2 = 12
+```
+
+So, residual connections help deep networks by:
+- Keeping gradients flowing
+- Preventing learning from getting worse as layers are added
+- Letting layers learn small changes instead of complete transformations
 
 ---
 
