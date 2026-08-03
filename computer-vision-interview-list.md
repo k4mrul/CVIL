@@ -95,9 +95,22 @@ So, residual connections help deep networks by:
 - Translation invariance
 
 **Why Convolutions Are Parameter-Efficient**
-- Local connectivity
-- Weight sharing
-- Spatial inductive bias
+
+Convolutional layers use fewer parameters than fully connected layers because they process images using small filters instead of connecting every input pixel to every output neuron. 
+
+- Local connectivity:
+
+  A convolutional neuron connects only to a small local region of the input, called its receptive field. This works well because nearby pixels are usually more related than distant pixels. Example: A 3 × 3 filter examines only 9 pixels at a time, rather than connecting to every pixel in the image
+
+- Weight sharing:
+
+  The same filter weights are reused across the entire image. Therefore, a filter that detects an edge in one location can detect the same edge anywhere else. Example: A 3 × 3 filter has only 9 weights, plus one bias. These same parameters are applied at the top, middle, and bottom of the image.
+
+- Spatial inductive bias: 
+
+  Convolutions assume that spatial patterns are meaningful and that useful features can appear in different locations. This built-in assumption helps the model learn image features efficiently. Example: A filter trained to detect a cat’s ear can recognize that shape whether it appears on the left or right side of an image.
+
+So convolutions are parameter-efficient because they use small local connections, reuse the same weights, and include assumptions that naturally match the spatial structure of images.
 
 **CNN Architecture Evolution**
 - LeNet: first practical CNN
