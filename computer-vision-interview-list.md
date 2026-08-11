@@ -113,14 +113,31 @@ Convolutional layers use fewer parameters than fully connected layers because th
 So convolutions are parameter-efficient because they use small local connections, reuse the same weights, and include assumptions that naturally match the spatial structure of images.
 
 **CNN Architecture Evolution**
-- LeNet: first practical CNN
-- AlexNet: ReLU, GPU training, dropout, ImageNet breakthrough
-- VGG: simplicity, stacked 3×3 convolutions
-- GoogLeNet / Inception: multi-scale processing
-- ResNet: residual learning, degradation problem, skip connections, identity mappings
-- DenseNet: feature reuse, gradient flow
-- EfficientNet: compound scaling
-- ConvNeXt: CNNs modernized with Transformer-era design
+- LeNet (1998): First practical CNN using convolution and pooling layers for image recognition.
+
+  Example: Recognizing handwritten digits (0-9) on bank checks.
+- AlexNet (2012): Introduced ReLU, GPU training, and dropout, achieving a breakthrough on ImageNet.
+
+  Example: Distinguishing between images of cats, dogs, and cars with much higher accuracy.
+- VGG (2014): Used a simple design with many stacked 3×3 convolution layers to learn deeper features.
+
+  Example: Detecting edges → shapes → objects (e.g., identifying a bicycle in a photo).
+- GoogLeNet / Inception (2014): Applied multi-scale processing by using different filter sizes simultaneously.
+
+  Example: Detecting both small traffic signs and large buildings in the same image.
+- ResNet (2015): Introduced skip connections and residual learning to train very deep networks effectively.
+
+  Example: A 152-layer network recognizing thousands of object categories without performance degradation.
+- DenseNet (2017): Connected every layer to later layers for feature reuse and better gradient flow.
+
+  Example: Early edge features are reused directly for face or animal recognition.
+- EfficientNet (2019): Used compound scaling to balance depth, width, and image resolution efficiently.
+
+  Example: High-accuracy image classification on mobile devices with fewer parameters.
+- ConvNeXt (2022): Modernized CNNs using ideas inspired by Transformers while keeping convolution operations.
+
+  Example: Achieving Transformer-level image recognition performance with a CNN-based model.
+
 
 **Must-Know CNN Topics**
 - BatchNorm
