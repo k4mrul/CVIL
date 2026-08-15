@@ -140,15 +140,50 @@ So convolutions are parameter-efficient because they use small local connections
 
 
 **Must-Know CNN Topics**
-- BatchNorm
-- LayerNorm
-- GroupNorm
-- Dropout
-- Residual blocks
-- Depthwise separable convolution
-- MobileNet
-- Squeeze-and-Excitation
-- FPN (Feature Pyramid Networks)
+
+1. Batch Normalization: Batch Normalization normalizes the output of a layer using the mean and variance of a mini-batch. This makes training faster and more stable because the network receives values in a more consistent range. It also allows the model to use higher learning rates and can reduce the need for Dropout in some cases.
+   
+   Example: In a CNN that classifies cats and dogs, BatchNorm can be added after a convolution layer so that the feature values do not become too large or too small during training.
+
+3. Layer Normalization: Layer Normalization normalizes the features inside one single sample instead of using the whole batch. It does not depend on batch size, so it works well when the batch size is very small. It is more common in Transformers and RNNs, but the idea is still useful to understand for deep learning. 
+
+    Example: If one image passes through a network, LayerNorm normalizes the features of that image only, instead of comparing it with other images in the batch.
+
+3. Group Normalization: Group Normalization divides the channels of a feature map into smaller groups and normalizes each group separately. It is useful when the batch size is small, where BatchNorm may not work well.
+
+    Example: Suppose a CNN layer has 32 channels. GroupNorm can divide them into 4 groups, with 8 channels in each group, and normalize each group separately.
+
+4. Dropout: Dropout is a regularization technique that randomly turns off some neurons during training. This helps the model avoid depending too much on specific neurons and reduces overfitting.
+
+    Example: If a layer has 100 neurons and Dropout rate is 0.5, then around 50 neurons are randomly ignored during one training step. This forces the network to learn more general features.
+
+5. Residual Blocks: Residual blocks are used in ResNet. They add a shortcut connection that allows the input to skip some layers and be added to the output. This helps gradients flow more easily and makes it possible to train very deep networks.
+
+    The basic idea is:
+    Output = F(x) + x
+
+    Here, F(x) is the result of convolution layers, and x is the original input.
+
+    Example: Instead of learning a completely new image feature from zero, a residual block learns only the change needed from the original feature.
+
+6. Depthwise Separable Convolution: Depthwise separable convolution is a lightweight version of normal convolution. It breaks convolution into two steps: first, it applies one filter to each input channel, then it uses a 1 × 1 convolution to combine the channels.
+
+    Example: In a normal convolution, the model learns spatial and channel information together. In depthwise separable convolution, it first finds patterns in each channel separately, then mixes the channels. This reduces computation.
+
+7. MobileNet: MobileNet is a CNN architecture designed for mobile phones and low-power devices. It mainly uses depthwise separable convolutions to reduce the number of parameters and make the model faster.
+
+    Example: A mobile app that detects objects using a phone camera can use MobileNet because it is smaller and faster than large CNN models like VGG or ResNet.
+
+8. Squeeze-and-Excitation Block: A Squeeze-and-Excitation block helps the network decide which channels are important. First, it squeezes each channel into a single value using global average pooling. Then, it learns weights for the channels and increases important channels while reducing less useful ones.
+
+    Example: If a CNN is detecting a bird, some channels may focus on feathers and wings. The SE block can give more importance to those useful channels.
+
+9. Feature Pyramid Network: Feature Pyramid Network, or FPN, is used to detect objects at different sizes. It combines low-level features, which have more detail, with high-level features, which have stronger meaning. This helps the model detect both small and large objects.
+
+    Example:  In a street image, a car may be large and a traffic light may be small. FPN helps the model detect both by using features from different CNN layers.
+
+Simple Summary: 
+BatchNorm, LayerNorm, and GroupNorm are normalization methods. Dropout helps prevent overfitting. Residual blocks help train deeper networks. Depthwise separable convolution and MobileNet make CNNs faster and lighter. SE blocks improve channel attention, and FPN improves object detection at multiple scales.
 
 ---
 
