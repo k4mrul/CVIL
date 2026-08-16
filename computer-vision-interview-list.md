@@ -140,6 +140,11 @@ So convolutions are parameter-efficient because they use small local connections
 
 
 **Must-Know CNN Topics**
+Normalization transforms data into a standard form that is easier for a neural network to learn from. Normalization makes data more consistent by reducing large differences between values.
+
+Without normalization, some features may have very large values while others have small values. This can make training unstable and slow.
+
+Exmaple: pixel values of an image are: [0, 128, 255]. We can normalize them to the range 0 to 1 by dividing by 255:  [0.0, 0.5, 1.0]
 
 1. Batch Normalization: Batch Normalization normalizes the output of a layer using the mean and variance of a mini-batch. This makes training faster and more stable because the network receives values in a more consistent range. It also allows the model to use higher learning rates and can reduce the need for Dropout in some cases.
    
