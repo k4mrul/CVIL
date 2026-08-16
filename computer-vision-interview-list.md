@@ -141,7 +141,7 @@ So convolutions are parameter-efficient because they use small local connections
 
 **Must-Know CNN Topics**
 
-Normalization transforms data into a standard form that is easier for a neural network to learn from. Normalization makes data more consistent by reducing large differences between values.
+Normalization transforms/scales data into a standard form that is easier for a neural network to learn from. Normalization makes data more consistent by reducing large differences between values.
 
 Without normalization, some features may have very large values while others have small values. This can make training unstable and slow.
 
