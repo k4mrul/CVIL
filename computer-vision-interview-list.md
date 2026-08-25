@@ -195,17 +195,164 @@ BatchNorm, LayerNorm, and GroupNorm are normalization methods. Dropout helps pre
 
 ## Phase 3: Transformers & Vision Transformers
 
-**Transformer Fundamentals**
-- Self-attention: queries, keys, values, similarity matching, scaling, softmax
-- Multi-head attention: parallel subspace learning, diverse representations
-- Positional encoding: why Transformers need spatial order injected
+***Transformer Fundamentals***
+1. Self-Attention
 
-**Vision Transformers (ViTs)**
-- Core idea: image → patches → tokens
-- Patch embedding
-- CLS token
-- ViT encoder
-- Why ViTs need huge datasets
+Self-attention helps a model understand which words or tokens are most important to each other in a sequence.
+
+- Query (Q): What the current token is looking for.
+- Key (K): What each token offers.
+- Value (V): The actual information carried by each token.
+
+The model compares a query with all keys to measure similarity. Higher similarity means the tokens are more related.
+
+*Process*
+- Compute similarity: Q × Kᵀ
+- Scale the scores by dividing by √d (where d is key dimension) to keep values stable.
+- Apply Softmax to convert scores into probabilities.
+- Use these probabilities to weight the values (V).
+
+*Example*
+
+Sentence: "The cat sat on the mat."
+
+When processing "sat", the model may pay more attention to "cat" because the action "sat" is closely related to the subject "cat".
+
+2. Multi-Head Attention
+
+Multi-head attention learns multiple types of relationships simultaneously
+
+Each head learns different relationships and patterns from the same input.
+
+Why use multiple heads?
+
+A single head may focus only on one type of information. Multiple heads allow the model to learn diverse representations.
+
+Example
+
+For the sentence:
+
+> "The dog chased the ball in the park."
+
+- Head 1 may focus on dog ↔ chased (subject-action).
+- Head 2 may focus on ball ↔ chased (object-action).
+- Head 3 may focus on park ↔ chased (location).
+
+Combining all heads gives a richer understanding.
+
+3. Positional Encoding
+
+Transformers process all tokens simultaneously, so they do not naturally know the order of words. 
+
+Positional encoding injects position information into token embeddings.
+
+*Why is it needed?*
+
+Without positional information:
+
+> "Dog bites man"
+
+and
+
+> "Man bites dog"
+
+would appear similar because they contain the same words.
+
+Positional encodings allow the model to distinguish between different word orders.
+
+Example
+
+| Word | Position |
+|------|----------|
+| The  | 1        |
+| cat  | 2        |
+| sat  | 3        |
+
+The position vectors are added to word embeddings so the model understands sequence order.
+
+***Vision Transformers (ViTs)***
+
+1. Core Idea: Image → Patches → Tokens
+
+Vision Transformers treat an image like a sentence.
+
+Instead of words, the image is divided into small patches. Each patch becomes a token.
+
+*Example*
+
+A 224×224 image with 16×16 patches:
+
+- Number of patches = (224/16) × (224/16)
+- Number of patches = 14 × 14 = 196
+
+The image becomes a sequence of 196 tokens.
+
+2. Patch Embedding
+
+Each image patch is flattened into a vector and projected into an embedding space.
+
+This is similar to converting words into word embeddings in NLP.
+
+*Example*
+
+A 16×16 RGB patch contains: 16 × 16 × 3 = 768 values
+
+These 768 pixel values are transformed into a learned embedding vector, such as 768 dimensions.
+
+The model now treats the patch like a token.
+
+3. CLS Token
+
+A special token called CLS (classification token) is added at the beginning of the patch sequence.
+
+During processing, this token gathers information from all patches.
+
+After the encoder finishes, the CLS token is used for image classification.
+
+*Example*
+
+Input sequence:
+`[CLS] Patch1 Patch2 Patch3 ... Patch196`
+
+Output:
+`CLS → "Cat"`
+
+The final CLS representation contains information about the entire image.
+
+4. ViT Encoder
+
+The ViT encoder is a standard Transformer encoder consisting of:
+
+- Multi-head self-attention
+- Feed-forward neural networks
+- Layer normalization
+- Residual connections
+
+Each patch attends to every other patch, allowing the model to learn global relationships across the image.
+
+*Example*
+
+In an image of a car:
+
+- One patch may contain a wheel.
+- Another patch may contain a window.
+
+Attention helps connect these distant regions and recognize the full object as a car.
+
+5. Why ViTs Need Huge Datasets
+
+CNNs have built-in image biases, such as locality and translation invariance, which help them learn efficiently from smaller datasets.
+
+ViTs do not have these built-in assumptions. They must learn image patterns directly from data.
+
+As a result, ViTs usually require very large datasets for strong performance.
+
+*Example*
+
+Training on:
+
+- Small dataset: 10,000 images → CNNs often perform better.
+- Huge dataset: millions of images → ViTs can outperform CNNs because they learn powerful global representations.
 
 **Key ViT Variants & Models**
 - DeiT
