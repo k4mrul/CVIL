@@ -50,8 +50,29 @@ Dog: 0.43
 The model is very confident about the person and car, but less confident about the dog. A confidence threshold, such as 0.50, can be used to remove weak predictions.
 
 **Two-Stage vs. One-Stage Detectors**
-- Two-stage: R-CNN, Fast R-CNN, Faster R-CNN (proposal generation, accuracy-focused)
-- One-stage: SSD, RetinaNet, YOLO (real-time inference)
+
+Object detection models are commonly divided into two-stage detectors and one-stage detectors. The main difference is how they find and classify objects.
+
+- Two-Stage Detectors
+
+  Two-stage detectors first generate region proposals, which are possible areas containing objects. In the second stage, they classify each proposed region and refine its bounding box.
+
+  Examples include R-CNN, Fast R-CNN, and Faster R-CNN. These models are generally accurate, but their multiple processing stages can make them slower.
+
+  For example, Faster R-CNN first finds possible locations of cars in an image. It then examines each location to confirm whether it contains a car and adjusts the bounding box.
+
+- One-Stage Detectors
+
+  One-stage detectors predict object classes and bounding boxes in a single pass through the model. They do not use a separate region-proposal stage.
+
+  Examples include SSD, RetinaNet, and YOLO. These models are usually faster and are suitable for real-time applications.
+
+  For example, YOLO processes a video frame once and directly predicts the locations and classes of people, cars, and other objects.
+
+- Simple Comparison
+
+  Two-stage detectors mainly focus on high accuracy, while one-stage detectors mainly focus on high speed and real-time inference. However, modern one-stage detectors such as YOLO can provide both strong accuracy and fast performance.
+
 
 **RetinaNet**
 - Focal loss: class imbalance, hard example emphasis
