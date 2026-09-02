@@ -49,14 +49,6 @@ Dog: 0.43
 
 The model is very confident about the person and car, but less confident about the dog. A confidence threshold, such as 0.50, can be used to remove weak predictions.
 
-
-**Detection Pipeline Fundamentals**
-- Classification vs. localization
-- Anchor boxes
-- IoU
-- NMS
-- Confidence scores
-
 **Two-Stage vs. One-Stage Detectors**
 - Two-stage: R-CNN, Fast R-CNN, Faster R-CNN (proposal generation, accuracy-focused)
 - One-stage: SSD, RetinaNet, YOLO (real-time inference)
