@@ -86,19 +86,59 @@ Object detection models are commonly divided into two-stage detectors and one-st
 - YOLOv8+: decoupled heads, modern training
 
 **Must-Know YOLO Internals**
-Backbone         → Extracts image features (e.g., learns wheels, windows, edges of a car)
-Neck             → Combines features from different layers (e.g., helps YOLO detect both small and large cars)
-Head             → Makes final prediction. Predicts class, bounding box, and confidence (e.g., Car, 96%, box coordinates)
-PAN/FPN          → Feature Pyramid Network (FPN), PAN (Path Aggregation Network) Helps detect objects at different scales (e.g., a far person and a nearby truck)
-CSP Blocks       → Makes YOLO faster and more efficient (e.g., splits and merges feature paths)
-Anchor-Based     → Uses predefined box shapes (e.g., 20×20, 50×50 anchors for detection). Used older YOLO version
-Anchor-Free      → Predicts object locations directly (e.g., directly finds a car's center and size). Used in newer YOLO versions (YOLOv8+).
-Label Assignment → During training, YOLO must decide: "Which prediction should learn which object?". So it matches predictions to ground truth (e.g., box with IoU 0.8 learns the car)
-NMS              → Removes duplicate boxes (e.g., keeps Car 95%, removes Car 92% and 89%)
-GIoU Loss        → Measures overlap and empty space (e.g., predicted box is larger than target)
-DIoU Loss        → Measures overlap + center distance (e.g., correct size but shifted position)
-CIoU Loss        → Measures overlap + distance + shape (e.g., correct position but wrong aspect ratio)
+- **Backbone** → Extracts image features (e.g., learns wheels, windows, and edges of a car).
+- **Neck** → Combines features from different layers (e.g., helps YOLO detect both small and large cars).
+- **Head** → Makes final predictions: class, bounding box, and confidence (e.g., Car, 96%, box coordinates).
+- **PAN/FPN** → **FPN (Feature Pyramid Network)** and **PAN (Path Aggregation Network)** help detect objects at different scales (e.g., a far person and a nearby truck).
+- **CSP Blocks** → Make YOLO faster and more efficient by splitting and merging feature paths.
+- **Anchor-Based** → Uses predefined box shapes (e.g., 20×20, 50×50 anchors). Used in older YOLO versions.
+- **Anchor-Free** → Predicts object locations directly (e.g., finds a car's center and size without anchors). Used in newer YOLO versions (YOLOv8+).
+- **Label Assignment** → During training, YOLO decides which prediction should learn which object. It matches predictions to ground truth (e.g., a box with IoU = 0.8 learns the car).
+- **NMS (Non-Maximum Suppression)** → Removes duplicate detections (e.g., keeps Car 95%, removes Car 92% and 89%).
+- **GIoU Loss** → Measures overlap and empty space between predicted and actual boxes.
+- **DIoU Loss** → Measures overlap plus center-point distance.
+- **CIoU Loss** → Measures overlap, center distance, and aspect ratio. Usually the most complete loss.
 
-mAP@0.5          → A prediction is considered correct if IoU ≥ 0.5 (e.g., IoU 0.7 counts as correct). Higher mAP@0.5 means better detection performance.
-mAP@0.5:0.95     → Average mAP from IoU 0.5 to 0.95 (e.g., tests both detection and box precision). More strict and realistic accuracy metri
+**Detection Metrics**
+
+- **mAP@0.5** → A prediction is considered correct if **IoU ≥ 0.5** (e.g., IoU = 0.7 counts as correct). Higher mAP@0.5 means better detection performance.
+- **mAP@0.5:0.95** → Average mAP across IoU thresholds from **0.50 to 0.95**. More strict and realistic because it evaluates both object detection and bounding box precision.
+
+**YOLO Pipeline**
+
+```text
+Image
+  ↓
+Backbone
+  ↓
+Neck (PAN/FPN)
+  ↓
+Head
+  ↓
+Predictions
+  ↓
+NMS
+  ↓
+Final Detections
+```
+
+**Quick Interview Summary**
+
+```text
+Backbone         = Feature extraction
+Neck             = Feature fusion
+Head             = Object prediction
+PAN/FPN          = Multi-scale detection
+CSP Blocks       = Efficiency and speed
+Anchor-Based     = Uses predefined anchors
+Anchor-Free      = Direct box prediction
+Label Assignment = Match predictions with ground truth
+NMS              = Remove duplicate detections
+GIoU             = Overlap + empty space loss
+DIoU             = Overlap + center distance loss
+CIoU             = Overlap + distance + shape loss
+mAP@0.5          = Detection accuracy (IoU ≥ 0.5)
+mAP@0.5:0.95     = Stricter overall detection accuracy
+```
+
 
