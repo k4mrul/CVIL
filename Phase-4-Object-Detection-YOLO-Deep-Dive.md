@@ -86,17 +86,19 @@ Object detection models are commonly divided into two-stage detectors and one-st
 - YOLOv8+: decoupled heads, modern training
 
 **Must-Know YOLO Internals**
-- Backbone
-- Neck
-- Head
-- PAN / FPN
-- CSP blocks
-- Anchor-based vs. anchor-free
-- Label assignment
-- NMS
-- CIoU / GIoU / DIoU losses
+Backbone         → Extracts image features (e.g., learns wheels, windows, edges of a car)
+Neck             → Combines features from different layers (e.g., helps YOLO detect both small and large cars)
+Head             → Makes final prediction. Predicts class, bounding box, and confidence (e.g., Car, 96%, box coordinates)
+PAN/FPN          → Feature Pyramid Network (FPN), PAN (Path Aggregation Network) Helps detect objects at different scales (e.g., a far person and a nearby truck)
+CSP Blocks       → Makes YOLO faster and more efficient (e.g., splits and merges feature paths)
+Anchor-Based     → Uses predefined box shapes (e.g., 20×20, 50×50 anchors for detection). Used older YOLO version
+Anchor-Free      → Predicts object locations directly (e.g., directly finds a car's center and size). Used in newer YOLO versions (YOLOv8+).
+Label Assignment → During training, YOLO must decide: "Which prediction should learn which object?". So it matches predictions to ground truth (e.g., box with IoU 0.8 learns the car)
+NMS              → Removes duplicate boxes (e.g., keeps Car 95%, removes Car 92% and 89%)
+GIoU Loss        → Measures overlap and empty space (e.g., predicted box is larger than target)
+DIoU Loss        → Measures overlap + center distance (e.g., correct size but shifted position)
+CIoU Loss        → Measures overlap + distance + shape (e.g., correct position but wrong aspect ratio)
 
-**Detection Metrics**
-- mAP@0.5
-- mAP@0.5:0.95
-- Precision-recall curves
+mAP@0.5          → A prediction is considered correct if IoU ≥ 0.5 (e.g., IoU 0.7 counts as correct). Higher mAP@0.5 means better detection performance.
+mAP@0.5:0.95     → Average mAP from IoU 0.5 to 0.95 (e.g., tests both detection and box precision). More strict and realistic accuracy metri
+
