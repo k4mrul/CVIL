@@ -428,8 +428,7 @@ Detection Metrics
 
 ---
 
-## Phase 5: Object Tracking Fundamentals
-
+## [Phase 5: Object Tracking Fundamentals](https://github.com/k4mrul/CVIL/blob/main/Phase-5-Object-Tracking-Fundamentals.md)
 **Tracking Paradigms**
 - Online vs. offline tracking
 - Detection-based tracking
