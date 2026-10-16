@@ -429,6 +429,7 @@ Detection Metrics
 ---
 
 ## [Phase 5: Object Tracking Fundamentals](https://github.com/k4mrul/CVIL/blob/main/Phase-5-Object-Tracking-Fundamentals.md)
+
 **Tracking Paradigms**
 - Online vs. offline tracking
 - Detection-based tracking
@@ -464,8 +465,7 @@ Detection Metrics
 
 ---
 
-## Specialization Tracks
-
+## [Specialization Tracks](https://github.com/k4mrul/CVIL/blob/main/Phase-5-Object-Tracking-Fundamentals.md#specialization-tracks)
 Pick the track(s) relevant to your target role. Each one assumes the Core Phases above as a foundation.
 
 ---
