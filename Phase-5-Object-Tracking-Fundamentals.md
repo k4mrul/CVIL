@@ -942,3 +942,636 @@ DeepSORT / BoT-SORT
 Use ReID features internally
 to keep identities consistent
 ```
+
+# Deployment & Production Computer Vision
+
+This specialization is about:
+
+> "My model works. Now how do I make it faster, cheaper, and usable in the real world?"
+
+---
+
+# Model Optimization
+
+Goal:
+
+```text
+Same accuracy
+↓
+Less memory
+Less compute
+Faster inference
+```
+
+---
+
+## 1. FP16
+
+FP16 = 16-bit numbers instead of 32-bit numbers.
+
+```text
+FP32 → normal precision
+FP16 → half precision
+```
+
+Benefits:
+
+- Faster inference ✅
+- Less GPU memory ✅
+
+Example:
+
+```text
+Model uses 8 GB
+
+FP16 might use ~4 GB
+```
+
+---
+
+## 2. INT8 Quantization
+
+Convert model weights to 8-bit integers.
+
+```text
+FP32 → INT8
+```
+
+Benefits:
+
+- Much smaller model
+- Faster inference
+
+Tradeoff:
+
+```text
+Slight accuracy drop possible
+```
+
+---
+
+## 3. TensorRT
+
+NVIDIA's optimization engine.
+
+```text
+PyTorch Model
+      ↓
+TensorRT
+      ↓
+Faster Model
+```
+
+Benefits:
+
+- Faster GPU inference
+- Lower latency
+
+Think:
+
+```text
+TensorRT = Turbo mode for NVIDIA GPUs
+```
+
+---
+
+## 4. ONNX
+
+ONNX = Open Neural Network Exchange
+
+Allows models to move between frameworks.
+
+```text
+PyTorch
+   ↓
+ONNX
+   ↓
+TensorRT / OpenVINO / Others
+```
+
+Think:
+
+```text
+ONNX = Universal model format
+```
+
+---
+
+## 5. Pruning
+
+Remove unimportant neurons or connections.
+
+```text
+Large Model
+      ↓
+Remove useless parts
+      ↓
+Smaller Model
+```
+
+Like:
+
+```text
+Trimming unnecessary branches from a tree
+```
+
+---
+
+## 6. Distillation
+
+Train a small model using a large model.
+
+```text
+Teacher Model
+      ↓
+Teach
+      ↓
+Student Model
+```
+
+Benefits:
+
+```text
+Smaller
+Faster
+Nearly same accuracy
+```
+
+---
+
+# Inference Optimization
+
+Inference = Running predictions.
+
+---
+
+## 1. Batching
+
+Process multiple images together.
+
+Instead of:
+
+```text
+1 image
+1 image
+1 image
+```
+
+Use:
+
+```text
+8 images together
+```
+
+Benefits:
+
+- Better GPU utilization
+- Higher throughput
+
+---
+
+## 2. Async Inference
+
+Don't wait for one task to finish before starting another.
+
+Example:
+
+```text
+Frame 1 processing
+
+While processing:
+Frame 2 loading
+Frame 3 decoding
+```
+
+Everything works in parallel.
+
+Result:
+
+```text
+Higher FPS
+```
+
+---
+
+## 3. CUDA Streams
+
+Allow GPU tasks to run simultaneously.
+
+Without streams:
+
+```text
+Task A
+Task B
+Task C
+```
+
+With streams:
+
+```text
+Task A
+Task B
+Task C
+
+running together
+```
+
+Result:
+
+```text
+Better GPU utilization
+```
+
+---
+
+## 4. Memory Bottlenecks
+
+Sometimes memory is slower than computation.
+
+Example:
+
+```text
+GPU waits for data
+```
+
+instead of
+
+```text
+GPU doing work
+```
+
+Goal:
+
+```text
+Keep GPU busy
+Avoid memory delays
+```
+
+---
+
+# Edge Deployment
+
+Edge = Run models near the camera/device.
+
+Instead of:
+
+```text
+Camera → Cloud Server
+```
+
+Use:
+
+```text
+Camera → Local Device
+```
+
+Benefits:
+
+- Lower latency
+- Less internet usage
+- Better privacy
+
+---
+
+## 1. Jetson Devices
+
+Small NVIDIA computers for AI.
+
+Examples:
+
+```text
+Jetson Nano
+Jetson Xavier
+Jetson Orin
+```
+
+Used for:
+
+- Robots
+- Cameras
+- Smart factories
+- Traffic monitoring
+
+---
+
+## 2. TensorRT Engines
+
+Optimized model files for Jetson devices.
+
+```text
+PyTorch
+   ↓
+ONNX
+   ↓
+TensorRT Engine
+```
+
+Fastest deployment path on NVIDIA hardware.
+
+---
+
+## 3. DeepStream Basics
+
+NVIDIA framework for video analytics.
+
+Pipeline:
+
+```text
+Video
+ ↓
+Detection
+ ↓
+Tracking
+ ↓
+Analytics
+ ↓
+Output
+```
+
+Useful when handling:
+
+```text
+10
+20
+50+
+camera streams
+```
+
+---
+
+# Production Tracking/ReID System
+
+Real-world pipeline:
+
+```text
+Camera Stream
+      ↓
+Detector
+      ↓
+Tracker
+      ↓
+ReID Embeddings
+      ↓
+Identity Database
+      ↓
+Search / Matching
+```
+
+---
+
+## Example
+
+Person enters Camera A:
+
+```text
+Detect Person
+      ↓
+Track Person
+      ↓
+Create Embedding
+      ↓
+Store Embedding
+```
+
+Later appears in Camera B:
+
+```text
+Create New Embedding
+       ↓
+Compare Database
+       ↓
+Same Person Found
+```
+
+---
+
+# System Design Questions
+
+These are common interview topics.
+
+---
+
+## 1. Camera Synchronization
+
+Question:
+
+```text
+Are all cameras showing the same time?
+```
+
+Important because:
+
+```text
+Camera A: 10:00:01
+
+Camera B: 09:59:55
+```
+
+can cause matching problems.
+
+Solution:
+
+```text
+Synchronize clocks
+```
+
+---
+
+## 2. Embedding Database
+
+Stores ReID features.
+
+Example:
+
+```text
+Person ID
+Embedding Vector
+Timestamp
+Camera ID
+```
+
+Used for:
+
+```text
+Fast similarity search
+```
+
+---
+
+## 3. Temporal Consistency
+
+Question:
+
+```text
+Does the identity make sense over time?
+```
+
+Example:
+
+```text
+Person appears at Camera A
+
+1 second later
+appears 10 km away
+```
+
+Impossible.
+
+System should reject it.
+
+---
+
+## 4. Latency Constraints
+
+Latency = Delay.
+
+Example:
+
+```text
+Camera
+ ↓
+Detection
+ ↓
+Tracking
+ ↓
+Alert
+
+Total < 100 ms
+```
+
+Lower latency is usually better.
+
+---
+
+## 5. Distributed Inference
+
+Multiple machines share the work.
+
+Instead of:
+
+```text
+1 GPU
+```
+
+Use:
+
+```text
+GPU 1
+GPU 2
+GPU 3
+GPU 4
+```
+
+Benefits:
+
+```text
+Handle more cameras
+More throughput
+```
+
+---
+
+## 6. Edge vs Cloud Tradeoffs
+
+### Edge
+
+```text
+Fast
+Private
+Works offline
+```
+
+Problems:
+
+```text
+Limited hardware
+```
+
+---
+
+### Cloud
+
+```text
+Powerful GPUs
+Easy scaling
+```
+
+Problems:
+
+```text
+Internet required
+More latency
+```
+
+---
+
+# Real Production Example
+
+```text
+100 Cameras
+      ↓
+Edge Detection (Jetson)
+      ↓
+Tracker (BoT-SORT)
+      ↓
+ReID Embeddings
+      ↓
+Vector Database
+      ↓
+Cloud Search Dashboard
+```
+
+This is roughly how large surveillance and smart-city systems work.
+
+---
+
+# 30-Second Revision
+
+```text
+FP16        = Half precision
+INT8        = Smaller & faster model
+ONNX        = Universal model format
+TensorRT    = NVIDIA optimization engine
+
+Pruning     = Remove unnecessary weights
+Distillation= Teacher teaches student
+
+Batching    = Process many images together
+Async       = Don't wait for previous task
+CUDA Streams= Parallel GPU work
+
+Jetson      = Edge AI device
+DeepStream  = NVIDIA video analytics framework
+
+Production Pipeline:
+Camera
+ → Detector
+ → Tracker
+ → ReID
+ → Database
+ → Search
+
+Important Design Topics:
+Camera Sync
+Embedding DB
+Temporal Consistency
+Latency
+Distributed Inference
+Edge vs Cloud
+```
+
+## Easy Memory Trick
+
+```text
+ONNX      = Export
+TensorRT  = Speed Up
+
+Pruning   = Cut
+Distill   = Teach
+
+Batching  = Many Together
+Async     = Work In Parallel
+
+Jetson    = Edge Device
+DeepStream= Video Pipeline
+```
