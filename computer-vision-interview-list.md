@@ -514,9 +514,7 @@ Pick the track(s) relevant to your target role. Each one assumes the Core Phases
 - Unsupervised / domain-adaptive ReID
 
 ---
-
-### Specialization: Deployment & Production CV
-
+### [Specialization: Deployment & Production CV](https://github.com/k4mrul/CVIL/blob/main/Phase-5-Object-Tracking-Fundamentals.md#deployment--production-computer-vision)
 **Model Optimization**
 - FP16
 - INT8 quantization
